@@ -205,7 +205,7 @@ static void WBFLASH_Read(uint32_t ReadAddr, uint8_t *ReadDest, uint16_t ReadLen)
  *  the manipulated buffer written after PageErase.
  *******************************************************************************/
 static uint8_t wb_flash_buffer[FEE_PAGE_SIZE] = {0};
-static int EEPROM_WriteDataPage(uint16_t Addr, uint8_t *WriteSrc, size_t Len) {
+static int     EEPROM_WriteDataPage(uint16_t Addr, uint8_t *WriteSrc, size_t Len) {
     uint16_t PageReamin;
     uint16_t PageOff;
     uint32_t PagePos;
