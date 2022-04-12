@@ -45,3 +45,5 @@
 #define DEBOUNCE 5
 
 #define QMK_KEYS_PER_SCAN 4
+
+#define KEYBOARD_SHARED_EP

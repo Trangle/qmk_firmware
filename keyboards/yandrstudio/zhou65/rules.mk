@@ -1,5 +1,5 @@
 # MCU name
-MCU = STM32F401
+MCU = WB32F3G71
 
 # Bootloader selection
 BOOTLOADER = stm32-dfu
@@ -16,3 +16,4 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
+EEPROM_DRIVER = vendor
