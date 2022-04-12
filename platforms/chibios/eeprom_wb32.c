@@ -206,11 +206,11 @@ static void WBFLASH_Read(uint32_t ReadAddr, uint8_t *ReadDest, uint16_t ReadLen)
  *******************************************************************************/
 static uint8_t wb_flash_buffer[FEE_PAGE_SIZE] = {0};
 static int EEPROM_WriteDataPage(uint16_t Addr, uint8_t *WriteSrc, size_t Len) {
-    uint16_t     PageReamin;
-    uint16_t     PageOff;
-    uint32_t     PagePos;
-    uint32_t     WriteAddr;
-    uint32_t     WriteLen;
+    uint16_t PageReamin;
+    uint16_t PageOff;
+    uint32_t PagePos;
+    uint32_t WriteAddr;
+    uint32_t WriteLen;
 
     /* exit if desired address is above the limit (Over maximum capacity).*/
     if (Addr > FEE_DENSITY_BYTES) {
@@ -271,9 +271,13 @@ static uint8_t EEPROM_ReadDataByte(uint16_t Address) {
 /*****************************************************************************
  *  Bind to eeprom_driver.c
  *******************************************************************************/
-void eeprom_driver_init(void) { EEPROM_Init(); }
+void eeprom_driver_init(void) {
+    EEPROM_Init();
+}
 
-void eeprom_driver_erase(void) { EEPROM_Erase(); }
+void eeprom_driver_erase(void) {
+    EEPROM_Erase();
+}
 
 void eeprom_read_block(void *buf, const void *addr, size_t len) {
     const uint8_t *p    = (const uint8_t *)addr;
@@ -286,7 +290,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
     uint8_t *dest = (uint8_t *)addr;
     uint8_t *src  = (uint8_t *)buf;
-    int retval;
+    int      retval;
 
     while (len) {
         retval = EEPROM_WriteDataPage((uintptr_t)((uint16_t *)dest), src, len);
@@ -295,8 +299,8 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
             return;
         }
 
-        len  -= retval;
+        len -= retval;
         dest += retval;
-        src  += retval;
+        src += retval;
     }
 }
