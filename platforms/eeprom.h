@@ -45,6 +45,9 @@ void     eeprom_update_block(const void *__src, void *__dst, size_t __n);
 #elif defined(EEPROM_STM32_FLASH_EMULATED)
 #    include "eeprom_stm32_defs.h"
 #    define TOTAL_EEPROM_BYTE_COUNT (FEE_DENSITY_BYTES)
+#elif defined(EEPROM_WB32_FLASH_EMULATED)
+#    include "eeprom_wb32_defs.h"
+#    define TOTAL_EEPROM_BYTE_COUNT (FEE_DENSITY_BYTES)
 #elif defined(EEPROM_SAMD)
 #    include "eeprom_samd.h"
 #    define TOTAL_EEPROM_BYTE_COUNT (EEPROM_SIZE)

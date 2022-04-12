@@ -201,7 +201,13 @@ else
         # Teensy EEPROM implementations
         OPT_DEFS += -DEEPROM_TEENSY
         SRC += eeprom_teensy.c
-      else
+      else ifneq ($(filter %_WB32F3G71x9 %_WB32F3G71xB %_WB32F3G71xC, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
+        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WB32_FLASH_EMULATED
+        OPT_DEFS += -DEEPROM_DRIVER
+        COMMON_VPATH += $(DRIVER_PATH)/eeprom
+        SRC += eeprom_driver.c
+        SRC += $(PLATFORM_COMMON_DIR)/eeprom_wb32.c
+	  else
         # Fall back to transient, i.e. non-persistent
         OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
         COMMON_VPATH += $(DRIVER_PATH)/eeprom
