@@ -54,7 +54,7 @@
 // WB32 compatibility
 #if defined(MCU_WB32)
 #    define CPU_CLOCK WB32_MAINCLK
-
+#        define USE_GPIOV1
 #    if defined(WB32F3G71xx)
 #        define PAL_OUTPUT_TYPE_OPENDRAIN PAL_WB32_OTYPE_OPENDRAIN
 #        define PAL_OUTPUT_TYPE_PUSHPULL PAL_WB32_OTYPE_PUSHPULL

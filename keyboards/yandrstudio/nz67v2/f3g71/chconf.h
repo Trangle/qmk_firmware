@@ -1,4 +1,4 @@
-/* Copyright 2021 JasonRen(biu)
+/* Copyright 2020 QMK
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "zhou980.h"
 
-void keyboard_post_init_kb(void) {
-#   ifdef RGBLIGHT_ENABLE
-    rgblight_reload_from_eeprom();
-#   endif
-}
+#pragma once
+#include_next <chconf.h>
+

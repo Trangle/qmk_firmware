@@ -16,7 +16,13 @@
 
 #pragma once
 
-#define CH_CFG_ST_TIMEDELTA 0
+#include_next <mcuconf.h>
 
-#include_next <chconf.h>
+#undef STM32_USB_USE_OTG1
+#define STM32_USB_USE_OTG1                  TRUE
 
+// #undef WB32_PWM_USE_TIM3
+// #define WB32_PWM_USE_TIM3                   TRUE
+
+// #undef  STM32_PLLXTPRE
+// #define STM32_PLLXTPRE                      STM32_PLLXTPRE_DIV2
