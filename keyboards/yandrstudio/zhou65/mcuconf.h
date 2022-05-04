@@ -17,7 +17,8 @@
 #pragma once
 
 #include_next <mcuconf.h>
-
+#undef STM32_USB_USE_OTG1
+#define STM32_USB_USE_OTG1                  TRUE
 // #define WB32_NO_INIT                       FALSE
 // #define WB32_MHSI_ENABLED                  TRUE
 // #define WB32_FHSI_ENABLED                  FALSE
