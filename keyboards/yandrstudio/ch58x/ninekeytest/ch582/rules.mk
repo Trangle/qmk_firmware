@@ -1,0 +1,12 @@
+# MCU name
+MCU = CH582M
+
+# Bootloader selection
+BOOTLOADER = chutil
+
+FIRMWARE_FORMAT = hex
+
+# MCU LD INFO
+MCU_LDSCRIPT = ch582m
+MCU_SERIES = CH58X
+# CHSDK_ROOT := ./nRF5_SDK_17.1.0_ddde560
