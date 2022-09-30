@@ -32,12 +32,11 @@ led_config_t g_led_config = {
         {0,26},{16,26},{32,26},{48,26},{64,26},{80,26},{96,26},{112,26},{128,26},{144,26},{160,26},{176,26},{192,26},{208,26},{224,26},
         {224,38},{208,38},       {176,38},{160,38},{144,38},{128,38},{112,38},{96,38},{80,38},{64,38},{48,38},{32,38},{16,38},{0,38},
         {0,51},       {32,51},{48,51},{64,51},{80,51},{96,51},{112,51},{128,51},{144,51},{160,51},{176,51},{192,51},{208,51},{224,51},
-        {224,64},{208,64},{192,64},{176,64},{160,64},                     {96,64},                     {32,64},{16,64},{0,64},
+        {224,64},{208,64},{192,64},{176,64},{160,64},   {128,64},             {96,64},    {64,64},             {32,64},{16,64},{0,64},
         {0,0},{15,0},{30,0},{45,0},{60,0},{75,0},{90,0},{105,0},{119,0},{134,0},{149,0},{164,0},{179,0},{194,0},{209,0},{224,0},
         {224,64},{209,64},{194,64},{179,64},{164,64},{149,64},{134,64},{119,64},{105,64},{90,64},{75,64},{60,64},{45,64},{30,64},{15,64},{0,64}
     },
     {
-      // LED Index to Flag
       4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
       4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
       4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
@@ -79,26 +78,20 @@ void rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     } else {
         rgb_matrix_set_color_all(0, 0, 0);
     }
+    rgb_matrix_indicators_advanced_user(led_min, led_max);
 }
 
 void eeconfig_init_kb(void) {
     user_config.raw = 0;
     eeconfig_update_kb(user_config.raw);
+    eeconfig_init_user();
 }
 
 extern const rgb_matrix_driver_t rgb_matrix_driver;
 void keyboard_post_init_kb(void) {
     user_config.underground_rgb_sw = eeconfig_read_kb();
     rgb_matrix_reload_from_eeprom();
-}
-
-#endif
-
-
-#ifdef RGBLIGHT_ENABLE
-
-void keyboard_post_init_kb(void) {
-    rgblight_reload_from_eeprom();
+    keyboard_post_init_user();
 }
 
 #endif
