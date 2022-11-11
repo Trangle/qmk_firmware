@@ -87,6 +87,13 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
 endif
 
+ifeq ($(strip $(SIGNALRGB_SUPPORT_ENABLE)), yes)
+    RAW_ENABLE := yes
+    SRC += $(QUANTUM_DIR)/signalrgb.c
+    OPT_DEFS += -DSIGNALRGB_SUPPORT_ENABLE
+endif
+
+
 MUSIC_ENABLE ?= no
 ifeq ($(MUSIC_ENABLE), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_music.c
