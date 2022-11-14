@@ -58,3 +58,10 @@
 #define SPI_SCK_PIN B3
 #define SPI_MOSI_PIN B5
 #define SPI_MISO_PIN B4
+
+// Backlight driver (to control LCD backlight)
+#define BACKLIGHT_PIN A6
+#define BACKLIGHT_LEVELS 4
+#define BACKLIGHT_PWM_DRIVER PWMD3
+#define BACKLIGHT_PWM_CHANNEL 1
+#define BACKLIGHT_LIMIT_VAL 196

@@ -30,5 +30,9 @@ FLASH_DRIVER = spi
 QUANTUM_PAINTER_ENABLE = yes
 QUANTUM_PAINTER_DRIVERS = st7735_spi
 
+BACKLIGHT_ENABLE = yes
+BACKLIGHT_DRIVER = pwm
+
+
 # VPATH += lib/ff15/source
 # SRC += diskio.c ff.c
