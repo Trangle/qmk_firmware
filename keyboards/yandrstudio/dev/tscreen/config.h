@@ -16,43 +16,45 @@
 #pragma once
 #include "config_common.h"
 
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 15
+/* USB Device descriptor parameter */
+#define VENDOR_ID       0xAA96
+#define PRODUCT_ID      0xBB01
+#define DEVICE_VER      0x0001
+#define MANUFACTURER    "YR"
+#define PRODUCT         "test"
 
-#define MATRIX_COL_PINS { C13, C14, C15, A3,   A4,  A5,  A6,  B12, B13, B14, B15,  A8,  A9, A10, B8 }
-#define MATRIX_ROW_PINS { B0,  B1,  B2,  B10,  B11, B9 }
+/* key matrix size */
+#define MATRIX_ROWS 1
+#define MATRIX_COLS 1
+
+#define MATRIX_COL_PINS { B12 }
+#define MATRIX_ROW_PINS { B11 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
 
-#ifdef RGBLIGHT_ENABLE
+/* W25Q128 */
+#define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN B10
+#define EXTERNAL_FLASH_PAGE_SIZE 256
+#define EXTERNAL_FLASH_SIZE (16 * 1024 * 1024)
+#define EXTERNAL_FLASH_SECTOR_SIZE (4 * 1024)
+#define EXTERNAL_FLASH_BLOCK_SIZE (64 * 1024)
+// #define EXTERNAL_FLASH_BLOCK_SIZE (32 * 1024)
+#define EXTERNAL_FLASH_SPI_CLOCK_DIVISOR 1
+#define EXTERNAL_FLASH_ADDRESS_SIZE 3
 
-#    define RGB_DI_PIN A7
-#    define RGBLED_NUM 4
-#    define DRIVER_LED_TOTAL RGBLED_NUM
-#    define RGBLIGHT_LIMIT_VAL 180
+/* ST7735 TFT*/
+// reset
+#define ST7735_RES_PIN B1
+// display/command rs pin
+#define ST7735_DC_PIN B0
+// chip select
+#define ST7735_CS_PIN A7
+// LED Anode
+#define ST7735_BLK_PIN A6
 
-#    define RGBLIGHT_EFFECT_BREATHING
-#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#    define RGBLIGHT_EFFECT_SNAKE
-#    define RGBLIGHT_EFFECT_KNIGHT
-#    define RGBLIGHT_EFFECT_CHRISTMAS
-#    define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#    define RGBLIGHT_EFFECT_RGB_TEST
-#    define RGBLIGHT_EFFECT_ALTERNATING
-#    define RGBLIGHT_EFFECT_TWINKLE
-#    define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
-
-#    define RGBLIGHT_LAYERS
-#    define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-#    define RGBLIGHT_LAYERS_RETAIN_VAL
-
-#   define WS2812_PWM_DRIVER PWMD3  // default: PWMD2
-#   define WS2812_PWM_CHANNEL 2     // default: 2
-#   define WS2812_PWM_PAL_MODE 2
-#   define WS2812_DMA_STREAM STM32_DMA1_STREAM3
-#   define WS2812_DMA_CHANNEL 3
-
-#endif
+/* SPI For Flash and TFT*/
+#define SPI_DRIVER SPID1
+#define SPI_SCK_PIN B3
+#define SPI_MOSI_PIN B5
+#define SPI_MISO_PIN B4

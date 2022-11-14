@@ -14,26 +14,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "tscreen.h"
+#include "qp.h"
 
-#ifdef RGBLIGHT_ENABLE
-const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 4, HSV_RED}
-);
+void board_init(void) {
+    AFIO->MAPR |= AFIO_MAPR_SPI1_REMAP;
+}
 
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_capslock_layer
-);
+// Initialisation
+painter_device_t lcd;
 
 void keyboard_post_init_kb(void) {
-    rgblight_layers = my_rgb_layers;
-    rgblight_reload_from_eeprom();
+#ifdef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
+    setPinOutput(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+    writePinHigh(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
+#endif // EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
+
+
+    // Let the LCD get some power...
+    wait_ms(150);
+
+    // Initialise the LCD
+    lcd = qp_st7735_make_spi_device(80, 160, ST7735_CS_PIN, ST7735_DC_PIN, ST7735_RES_PIN, 1, 0);
+    qp_init(lcd, QP_ROTATION_0);
+
+    // Turn on the LCD and clear the display
+    qp_power(lcd, true);
+    qp_rect(lcd, 0, 0, 239, 319, 0,0,0, true);
+
+    // Allow for user post-init
     keyboard_post_init_user();
 }
-
-bool led_update_kb(led_t led_state) {
-    if (led_update_user(led_state)) {
-        rgblight_set_layer_state(0, led_state.caps_lock);
-    }
-    return true;
-}
-#endif
