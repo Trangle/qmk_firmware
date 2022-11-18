@@ -1,5 +1,7 @@
 #pragma once
 
+#undef MIN
+#undef MAX
 #include "nrf_delay.h"
 
 #define wait_ms(ms)       \

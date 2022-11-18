@@ -15,6 +15,8 @@
  */
 #pragma once
 
+#undef MIN
+#undef MAX
 #include "pin_defs.h"
 #include "nrf_gpio.h"
 
