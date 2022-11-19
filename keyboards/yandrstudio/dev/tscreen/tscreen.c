@@ -16,6 +16,8 @@
 #include "tscreen.h"
 #include "qp.h"
 #include "color.h"
+#include "flash_spi.h"
+#include "print.h"
 
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_SPI1_REMAP;
@@ -25,6 +27,7 @@ void board_init(void) {
 painter_device_t lcd;
 
 void keyboard_post_init_kb(void) {
+    debug_enable=true;
 #ifdef EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN
     setPinOutput(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
     writePinHigh(EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN);
@@ -46,11 +49,17 @@ void keyboard_post_init_kb(void) {
     backlight_enable();
     backlight_level(BACKLIGHT_LEVELS);
 
+    // For w25qx
+    flash_init();
+
     // Allow for user post-init
     keyboard_post_init_user();
 }
 
 bool lcd_power_flag = false;
+
+uint8_t temp_w25q_data[32];
+flash_status_t fa;
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) { return false; }
@@ -63,6 +72,32 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 else
                     backlight_disable();
                 lcd_power_flag = !lcd_power_flag;
+            }
+            return false;
+        case KC_B:
+            if (record->event.pressed) {
+                temp_w25q_data[10] = 5;
+                flash_erase_block(0);
+                fa = flash_write_block(0,temp_w25q_data,sizeof(temp_w25q_data));
+            }
+            return false;
+        case KC_C:
+            if (record->event.pressed) {
+                temp_w25q_data[10] = 6;
+                flash_erase_block(0);
+                fa = flash_write_block(0,temp_w25q_data,sizeof(temp_w25q_data));
+            }
+            return false;
+        case KC_D:
+            if (record->event.pressed) {
+                fa = flash_read_block(0,temp_w25q_data,sizeof(temp_w25q_data));
+
+                dprintf("%d string", temp_w25q_data[10]);
+                if (temp_w25q_data[10] == 5) {
+                    qp_rect(lcd, 0, 0, 10, 10, HSV_CYAN, true);
+                } else if (temp_w25q_data[10] == 6) {
+                    qp_rect(lcd, 0, 0, 50, 50, HSV_GREEN, true);
+                }
             }
             return false;
         default:

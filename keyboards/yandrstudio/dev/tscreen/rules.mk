@@ -19,13 +19,12 @@ DFU_SUFFIX_ARGS = -p FFFF -v FFFF
 BOOTMAGIC_ENABLE = yes      # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = yes       # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = yes         # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 # RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 # WS2812_DRIVER = pwm         # WS2812 RGB Driver
 
-FLASH_DRIVER = spi
 
 QUANTUM_PAINTER_ENABLE = yes
 QUANTUM_PAINTER_DRIVERS = st7735_spi
@@ -33,6 +32,9 @@ QUANTUM_PAINTER_DRIVERS = st7735_spi
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
 
+# EEPROM_DRIVER = wear_leveling
+# WEAR_LEVELING_DRIVER = spi_flash
+FLASH_DRIVER = spi
 
 # VPATH += lib/ff15/source
 # SRC += diskio.c ff.c
