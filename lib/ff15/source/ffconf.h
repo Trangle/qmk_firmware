@@ -57,9 +57,12 @@
 
 
 #define FF_USE_STRFUNC	0
-#define FF_PRINT_LLI	1
-#define FF_PRINT_FLOAT	1
-#define FF_STRF_ENCODE	3
+// #define FF_PRINT_LLI	1
+#define FF_PRINT_LLI	0
+// #define FF_PRINT_FLOAT	1
+#define FF_PRINT_FLOAT	0
+// #define FF_STRF_ENCODE	3
+#define FF_STRF_ENCODE	0
 /* FF_USE_STRFUNC switches string functions, f_gets(), f_putc(), f_puts() and
 /  f_printf().
 /
@@ -84,7 +87,7 @@
 / Locale and Namespace Configurations
 /---------------------------------------------------------------------------*/
 
-#define FF_CODE_PAGE	932
+#define FF_CODE_PAGE	936
 /* This option specifies the OEM code page to be used on the target system.
 /  Incorrect code page setting can cause a file open failure.
 /
@@ -171,7 +174,8 @@
 
 
 #define FF_STR_VOLUME_ID	0
-#define FF_VOLUME_STRS		"RAM","NAND","CF","SD","SD2","USB","USB2","USB3"
+// #define FF_VOLUME_STRS		"RAM","NAND","CF","SD","SD2","USB","USB2","USB3"
+#define FF_VOLUME_STRS		"FLASH","RAM","NAND","CF","SD","SD2","USB","USB2","USB3"
 /* FF_STR_VOLUME_ID switches support for volume ID in arbitrary strings.
 /  When FF_STR_VOLUME_ID is set to 1 or 2, arbitrary strings can be used as drive
 /  number in the path name. FF_VOLUME_STRS defines the volume ID strings for each
@@ -193,8 +197,8 @@
 /  function will be available. */
 
 
-#define FF_MIN_SS		512
-#define FF_MAX_SS		512
+#define FF_MIN_SS		4096
+#define FF_MAX_SS		4096
 /* This set of options configures the range of sector size to be supported. (512,
 /  1024, 2048 or 4096) Always set both 512 for most systems, generic memory card and
 /  harddisk, but a larger value may be required for on-board flash memory and some
@@ -237,9 +241,9 @@
 /  Note that enabling exFAT discards ANSI C (C89) compatibility. */
 
 
-#define FF_FS_NORTC		0
-#define FF_NORTC_MON	1
-#define FF_NORTC_MDAY	1
+#define FF_FS_NORTC		1
+#define FF_NORTC_MON	11
+#define FF_NORTC_MDAY	20
 #define FF_NORTC_YEAR	2022
 /* The option FF_FS_NORTC switches timestamp feature. If the system does not have
 /  an RTC or valid timestamp is not needed, set FF_FS_NORTC = 1 to disable the
