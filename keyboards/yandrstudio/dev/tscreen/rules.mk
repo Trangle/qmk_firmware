@@ -36,5 +36,5 @@ BACKLIGHT_DRIVER = pwm
 # WEAR_LEVELING_DRIVER = spi_flash
 FLASH_DRIVER = spi
 
-# VPATH += lib/ff15/source
-# SRC += diskio.c ff.c
+VPATH += lib/ff15/source lib/ff15/porting
+SRC += diskio_flash.c ff.c
