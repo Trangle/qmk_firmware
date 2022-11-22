@@ -19,12 +19,16 @@
 #include "flash_spi.h"
 #include "print.h"
 
+#include "ikun_switch_st7735s.qgf.h"
+
 void board_init(void) {
     AFIO->MAPR |= AFIO_MAPR_SPI1_REMAP;
 }
 
 // Initialisation
-painter_device_t lcd;
+static painter_device_t lcd;
+static painter_image_handle_t my_image;
+static deferred_token my_anim;
 
 void keyboard_post_init_kb(void) {
     debug_enable=true;
@@ -38,12 +42,18 @@ void keyboard_post_init_kb(void) {
     wait_ms(150);
 
     // Initialise the LCD
-    lcd = qp_st7735_make_spi_device(80, 160, ST7735_CS_PIN, ST7735_DC_PIN, ST7735_RES_PIN, 1, 0);
+    lcd = qp_st7735s_make_spi_device(80, 160, ST7735_CS_PIN, ST7735_DC_PIN, ST7735_RES_PIN, 1, 0);
     qp_init(lcd, 0);
 
     // Turn on the LCD and clear the display
     qp_power(lcd, true);
-    qp_rect(lcd, 0, 0, 80, 160, HSV_RED, true);
+
+    // init gif
+    my_image = qp_load_image_mem(gfx_ikun_switch_st7735s);
+    // if (my_image != NULL) {
+        my_anim = qp_animate(lcd, 0, 0, my_image);
+    // }
+    // qp_rect(lcd, 0, 0, 80, 160, HSV_RED, true);
 
     // Turn on the LCD backlight
     backlight_enable();
@@ -56,7 +66,7 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-bool lcd_power_flag = false;
+static bool lcd_power_flag = false;
 
 uint8_t temp_w25q_data[32];
 flash_status_t fa;
@@ -105,3 +115,21 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+
+
+// static uint8_t last_backlight = BACKLIGHT_LIMIT_VAL;
+// void suspend_power_down_user(void) {
+//     if (last_backlight == BACKLIGHT_LIMIT_VAL) {
+//         last_backlight = get_backlight_level();
+//     }
+//     backlight_set(0);
+//     qp_power(lcd, false);
+// }
+
+// void suspend_wakeup_init_user(void) {
+//     qp_power(lcd, true);
+//     if (last_backlight != BACKLIGHT_LIMIT_VAL) {
+//         backlight_set(last_backlight);
+//     }
+//     last_backlight = BACKLIGHT_LIMIT_VAL;
+// }

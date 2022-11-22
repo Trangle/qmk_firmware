@@ -27,7 +27,7 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 
 
 QUANTUM_PAINTER_ENABLE = yes
-QUANTUM_PAINTER_DRIVERS = st7735_spi
+QUANTUM_PAINTER_DRIVERS = st7735s_spi
 
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
@@ -36,5 +36,10 @@ BACKLIGHT_DRIVER = pwm
 # WEAR_LEVELING_DRIVER = spi_flash
 FLASH_DRIVER = spi
 
-VPATH += lib/ff15/source lib/ff15/porting
-SRC += diskio_flash.c ff.c
+VPATH += keyboards/yandrstudio/dev/tscreen/giftools/gifs/generated
+SRC += ikun_switch_st7735s.qgf.c
+
+
+
+# VPATH += lib/ff15/source lib/ff15/porting
+# SRC += diskio_flash.c ff.c
