@@ -115,21 +115,32 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
+/*
+id_set_keyboard_value 0x03
 
+*/
 
-// static uint8_t last_backlight = BACKLIGHT_LIMIT_VAL;
-// void suspend_power_down_user(void) {
-//     if (last_backlight == BACKLIGHT_LIMIT_VAL) {
-//         last_backlight = get_backlight_level();
-//     }
-//     backlight_set(0);
-//     qp_power(lcd, false);
-// }
+void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
+    uint8_t *command_id = &(data[0]);
+    uint8_t *command_data = &(data[1]);
+    if (*command_id == 0x03 && command_data[0] == 0x96) {
+        dprintf("Recv OK cmd_id:%d cmd_data0:%d!!\n", command_id[0], command_data[0]);
+    }
+}
 
-// void suspend_wakeup_init_user(void) {
-//     qp_power(lcd, true);
-//     if (last_backlight != BACKLIGHT_LIMIT_VAL) {
-//         backlight_set(last_backlight);
-//     }
-//     last_backlight = BACKLIGHT_LIMIT_VAL;
-// }
+static uint8_t last_backlight = BACKLIGHT_LIMIT_VAL;
+void suspend_power_down_user(void) {
+    if (last_backlight == BACKLIGHT_LIMIT_VAL) {
+        last_backlight = get_backlight_level();
+    }
+    backlight_set(0);
+    qp_power(lcd, false);
+}
+
+void suspend_wakeup_init_user(void) {
+    qp_power(lcd, true);
+    if (last_backlight != BACKLIGHT_LIMIT_VAL) {
+        backlight_set(last_backlight);
+    }
+    last_backlight = BACKLIGHT_LIMIT_VAL;
+}

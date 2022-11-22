@@ -33,3 +33,10 @@ om = next(frames) # Handle first frame separately
 om.info = imageObject.info # Copy sequence info
 om.save("../gifs/ikun_switch_st7735s.gif", save_all=True, append_images=list(frames))
 
+
+
+
+
+
+
+
