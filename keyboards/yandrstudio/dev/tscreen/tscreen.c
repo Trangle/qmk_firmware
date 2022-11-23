@@ -50,9 +50,9 @@ void keyboard_post_init_kb(void) {
 
     // init gif
     my_image = qp_load_image_mem(gfx_ikun_switch_st7735s);
-    // if (my_image != NULL) {
+    if (my_image != NULL) {
         my_anim = qp_animate(lcd, 0, 0, my_image);
-    // }
+    }
     // qp_rect(lcd, 0, 0, 80, 160, HSV_RED, true);
 
     // Turn on the LCD backlight
@@ -125,6 +125,8 @@ void raw_hid_receive_kb(uint8_t *data, uint8_t length) {
     uint8_t *command_data = &(data[1]);
     if (*command_id == 0x03 && command_data[0] == 0x96) {
         dprintf("Recv OK cmd_id:%d cmd_data0:%d!!\n", command_id[0], command_data[0]);
+        dprintf("Img frames:%d!!\n", my_image->frame_count);
+
     }
 }
 
